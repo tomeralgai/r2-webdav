@@ -15,3 +15,6 @@ jobs:
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        env:
+          USERNAME: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          PASSWORD: ${{ secrets.CLOUDFLARE_API_TOKEN }}
