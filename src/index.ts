@@ -114,7 +114,10 @@ async function handle_get(request: Request, bucket: R2Bucket): Promise<Response>
 			let href = `/${object.key + (object.customMetadata?.resourcetype === '<collection />' ? '/' : '')}`;
 			page += `<a href="${href}">${object.httpMetadata?.contentDisposition ?? object.key}</a><br>`;
 		}
-		return new Response(page, { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+		return new Response(page, {
+			status: 200,
+			headers: { 'Content-Type': 'text/html; charset=utf-8' },
+		});
 	} else {
 		let object = await bucket.get(resource_path, {
 			onlyIf: request.headers,
@@ -611,7 +614,10 @@ export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
 		const { bucket } = env;
 
-		if (request.headers.get('Authorization') !== `Basic ${btoa(`${env.USERNAME}:${env.PASSWORD}`)}`) {
+		if (
+			request.method !== 'OPTIONS' &&
+			request.headers.get('Authorization') !== `Basic ${btoa(`${env.USERNAME}:${env.PASSWORD}`)}`
+		) {
 			return new Response('Unauthorized', {
 				status: 401,
 				headers: {
@@ -631,7 +637,9 @@ export default {
 		);
 		response.headers.set(
 			'Access-Control-Expose-Headers',
-			['content-type', 'content-length', 'dav', 'etag', 'last-modified', 'location', 'date', 'content-range'].join(', '),
+			['content-type', 'content-length', 'dav', 'etag', 'last-modified', 'location', 'date', 'content-range'].join(
+				', ',
+			),
 		);
 		response.headers.set('Access-Control-Allow-Credentials', 'false');
 		response.headers.set('Access-Control-Max-Age', '86400');
