@@ -5,7 +5,7 @@ name = "r2-webdav"
 node_compat = true
 
 # Variable bindings. These are arbitrary, plaintext strings (similar to environment variables) 
-# Note: Use secrets to store sensitive data.
+# Note: Use secrets to store sensitive data. 
 # Docs: https://developers.cloudflare.com/workers/platform/environment-variables
 # [vars]
 # MY_VARIABLE = "my-value"
