@@ -641,7 +641,7 @@ export default {
 				', ',
 			),
 		);
-		response.headers.set('Access-Control-Allow-Credentials', 'false');
+		response.headers.set('Access-Control-Allow-Credentials', 'true');
 		response.headers.set('Access-Control-Max-Age', '86400');
 
 		return response;
